@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import AceEditor from "react-ace";
 
-function App() {
+import 'ace-builds/src-noconflict/mode-html';
+import 'ace-builds/src-noconflict/theme-solarized_light';
+import CodeComponent from "./code.component";
+
+const App = () => {
+
+  const [code, setCode] = React.useState("");
+
+  const handleHTML = (newval) => setCode(newval);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <div className="wrapper">
+        <div className="section">
+          <AceEditor
+            mode="html"
+            theme="solarized_light"
+            showPrintMargin={true}
+            showGutter={true}
+            highlightActiveLine={true}
+            setOptions={{
+              enableBasicAutocompletion: false,
+              enableLiveAutocompletion: false,
+              enableSnippets: false,
+              showLineNumbers: true,
+              tabSize: 2,
+            }}
+            onChange={handleHTML}
+          />
+        </div>
+        <div className="section">
+          <CodeComponent code={code} />
+        </div>
+      </div>
+    </>
+  )
 }
 
 export default App;
